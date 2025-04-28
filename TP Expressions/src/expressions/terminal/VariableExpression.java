@@ -75,14 +75,13 @@ public class VariableExpression<E extends Number> extends TerminalExpression<E>
 	public boolean setValue(TerminalExpression<E> term)
 	{
 		// DONE 301 Replace with correct implementation
-		E termValue = term.value(); // No value() function
-		if (termValue == null)
-			throw new NullPointerException("Variable expression must have a value");
-		else
-		{
+		// Only set value if the terminal expression has a value
+		if (term != null && term.hasValue()) {
+			E termValue = term.value();
 			value = Optional.of(termValue);
 			return true;
 		}
+		return false;
 	}
 
 	/**
@@ -117,9 +116,6 @@ public class VariableExpression<E extends Number> extends TerminalExpression<E>
 	public String toString()
 	{
 		// DONE 303 Replace with correct implementation
-		if (hasValue())
-			return name + " = " + value.get(); // How to write it ???
-		else
-			return name;
+		return name;
 	}
 }

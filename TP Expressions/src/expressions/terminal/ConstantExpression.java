@@ -50,6 +50,7 @@ public class ConstantExpression<E extends Number> extends TerminalExpression<E>
 	public String toString()
 	{
 		// DONE 201 Replace with correct implementation
-		return String.valueOf(value);
+		return value.orElseThrow().toString(); // because return value.toString(); is BAD if value is Optional
+
 	}
 }

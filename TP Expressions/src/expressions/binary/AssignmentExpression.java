@@ -24,12 +24,10 @@ public class AssignmentExpression<E extends Number> extends BinaryExpression<E>
 	{
 		super(left, right, BinaryOperatorRules.ASSIGNMENT);
 		// DONE 600 Complete ...
-
-		// Si l'expression de droite peut être évaluée, on évalue et on assigne
-		if (right != null && right.hasValue()) {
-			E value = right.value(); // On évalue l'expression de droite
-			left.setValue(value); // On assigne le résultat à la variable de gauche
-		}
+    
+		// Use the setter methods to ensure parent relationships are set up
+        setLeft(left);
+        setRight(right);
 	}
 
 	/**
@@ -58,13 +56,14 @@ public class AssignmentExpression<E extends Number> extends BinaryExpression<E>
 		}
 		// DONE 601 Replace with correct implementation
 		E value = right.value();
-
+		
+		// Assign value to left side variable
 		if (left instanceof VariableExpression<E> variable) {
 			variable.setValue(value);
 		}
-	
-		// L'opération d'affectation retourne la valeur affectée
-		return operate(value, value);
+		
+		// Return the assigned value
+		return value;
 		
 	}
 
@@ -80,6 +79,8 @@ public class AssignmentExpression<E extends Number> extends BinaryExpression<E>
 	public boolean hasValue()
 	{
 		// DONE 602 Replace with correct implementation
+		// An assignment has a value if the right side has a value - we don't need to check 
+		// if left variable has a value yet, since we are going to SET it
 		return getLeft() != null && getRight() != null && getRight().hasValue();
 	}
 
@@ -94,7 +95,7 @@ public class AssignmentExpression<E extends Number> extends BinaryExpression<E>
 	protected E operate(E value1, E value2)
 	{
 		// DONE 603 Replace with correct implementation
-		return operate(value1, value2);
+		return value2;
 	}
 
 	/**

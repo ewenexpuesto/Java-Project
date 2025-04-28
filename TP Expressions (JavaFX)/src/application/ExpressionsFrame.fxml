@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="New">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/file-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></MenuItem>
+            <MenuItem mnemonicParsing="false" text="Open...">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/opened_folder-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></MenuItem>
+                  <MenuItem mnemonicParsing="false" text="Append...">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/add_file-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuItem>
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Close">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/delete_sign-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></MenuItem>
+            <MenuItem mnemonicParsing="false" text="Save">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/save-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></MenuItem>
+            <MenuItem mnemonicParsing="false" text="Save As…">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/save-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></MenuItem>
+            <MenuItem mnemonicParsing="false" text="Revert">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/data_backup-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></MenuItem>
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Quit">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/shutdown-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></MenuItem>
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Add">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/add_row-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></MenuItem>
+            <MenuItem mnemonicParsing="false" text="Delete">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/delete-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></MenuItem>
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Select All">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/select_all-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></MenuItem>
+            <MenuItem mnemonicParsing="false" text="Unselect All">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/select_none-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></MenuItem>
+          </items>
+        </Menu>
+            <Menu mnemonicParsing="false" text="Preferences">
+              <items>
+                  <Menu mnemonicParsing="false" text="Number type">
+                     <items>
+                        <RadioMenuItem mnemonicParsing="false" onAction="#onSelectNumberType" text="Integers">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="numberTypeGroup" />
+                           </toggleGroup></RadioMenuItem>
+                        <RadioMenuItem mnemonicParsing="false" onAction="#onSelectNumberType" text="Floats" toggleGroup="$numberTypeGroup" />
+                        <RadioMenuItem mnemonicParsing="false" onAction="#onSelectNumberType" selected="true" text="Doubles" toggleGroup="$numberTypeGroup" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Buttons Display">
+                     <items>
+                        <RadioMenuItem mnemonicParsing="false" onAction="#onDisplayButtonsWithStyle" selected="true" text="Graphics Only">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="buttonsDisplayGroup" />
+                           </toggleGroup>
+                        </RadioMenuItem>
+                        <RadioMenuItem mnemonicParsing="false" onAction="#onDisplayButtonsWithStyle" text="Text &amp; Graphics" toggleGroup="$buttonsDisplayGroup" />
+                        <RadioMenuItem mnemonicParsing="false" onAction="#onDisplayButtonsWithStyle" text="Text Only" toggleGroup="$buttonsDisplayGroup" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Debug Level">
+                    <items>
+                        <RadioMenuItem mnemonicParsing="false" selected="true" text="Info + Warning + Severe">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="debugLevelGroup" />
+                           </toggleGroup>
+                        </RadioMenuItem>
+                        <RadioMenuItem mnemonicParsing="false" text="Warning + Severe" toggleGroup="$debugLevelGroup" />
+                        <RadioMenuItem mnemonicParsing="false" text="Severe" toggleGroup="$debugLevelGroup" />
+                        <RadioMenuItem mnemonicParsing="false" text="Off" toggleGroup="$debugLevelGroup" />
+                    </items>
+                  </Menu>
+              </items>
+            </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About Expressions App">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/about-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></MenuItem>
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+      <BorderPane VBox.vgrow="ALWAYS">
+         <bottom>
+            <HBox BorderPane.alignment="CENTER">
+               <children>
+                  <TextField onInputMethodTextChanged="#onAddAction" prefHeight="40.0" promptText="Type Expression ..." HBox.hgrow="ALWAYS" />
+                  <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" text="Add">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/add_row-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Parse and Add expressions" />
+                     </tooltip></Button>
+               </children>
+            </HBox>
+         </bottom>
+         <top>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <ToolBar prefHeight="40.0" prefWidth="200.0">
+                    <items>
+                        <Button mnemonicParsing="false" text="Open">
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/opened_folder-32.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <tooltip>
+                              <Tooltip text="Open file" />
+                           </tooltip>
+                        </Button>
+                        <Button mnemonicParsing="false" text="Save">
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/save-32.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <tooltip>
+                              <Tooltip text="Save to file" />
+                           </tooltip>
+                        </Button>
+                        <Separator orientation="VERTICAL" />
+                        <Button mnemonicParsing="false" text="Select All">
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/select_all-32.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" text="Select None">
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/select_none-32.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" text="Delete">
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/delete-32.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <tooltip>
+                              <Tooltip text="Delete selected expressions" />
+                           </tooltip>
+                        </Button>
+                        <Separator orientation="VERTICAL" />
+                        <HBox HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" text="Quit">
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/shutdown-32.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                    </items>
+                  </ToolBar>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="Search">
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding></Label>
+                        <TextField prefWidth="200.0" promptText="for ..." />
+                        <Label text="as">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                        <ComboBox prefWidth="200.0" />
+                        <Label text="in">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding></Label>
+                        <ComboBox prefWidth="200.0" />
+                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Revert">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/clear_filters-32.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <tooltip>
+                              <Tooltip text="Clear filtering criteria" />
+                           </tooltip>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+         <left>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <TreeView prefWidth="200.0" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <TableView editable="true" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn minWidth="-Infinity" onEditCommit="#onEditCommitAction" prefWidth="400.0" text="Expressions" />
+                      <TableColumn editable="false" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="100.0" style="-fx-alignment: CENTER-RIGHT;" text="Values" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </center>
+         <right>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <TableView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn editable="false" minWidth="-Infinity" prefWidth="100.0" text="Variables" />
+                      <TableColumn editable="false" minWidth="-Infinity" prefWidth="109.0" text="Values" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </right>
+      </BorderPane>
+    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+      <children>
+        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS" />
+        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+      </children>
+      <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+      </padding>
+    </HBox>
+  </children>
+</VBox>

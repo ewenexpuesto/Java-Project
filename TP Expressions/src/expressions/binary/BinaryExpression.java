@@ -49,6 +49,9 @@ public abstract class BinaryExpression<E extends Number> extends AbstractExpress
 	                           BinaryOperatorRules rules)
 	{
 		// DONE 400 Complete ...
+		if (rules == null) {
+			throw new IllegalArgumentException("Operator rules must not be null");
+		}
 		this.rules = rules;
 		this.left = left;
 		this.right = right;
@@ -103,12 +106,7 @@ public abstract class BinaryExpression<E extends Number> extends AbstractExpress
 		// If the new left expression is not null, set its parent to this
 		if (left != null)
 		{
-			// If the new expression already has a parent, detach it first
-			if (left.getParent() != null)
-				left.setParent(null);
-				
-			// Set this as the parent
-			left.setParent(this);
+			left.setParent(this);  // Set this as the parent directly
 		}
 	}
 
@@ -133,12 +131,7 @@ public abstract class BinaryExpression<E extends Number> extends AbstractExpress
 		// If the new right expression is not null, set its parent to this
 		if (right != null)
 		{
-			// If the new expression already has a parent, detach it first
-			if (right.getParent() != null)
-				right.setParent(null);
-				
-			// Set this as the parent
-			right.setParent(this);
+			right.setParent(this);  // Set this as the parent directly
 		}
 	}
 
@@ -162,8 +155,15 @@ public abstract class BinaryExpression<E extends Number> extends AbstractExpress
 	public E value() throws IllegalStateException
 	{
 		// DONE 403 Replace with correct implementation
-		if (left == null || right == null || !left.hasValue() || !right.hasValue())
+		if (left == null || right == null) {
 			throw new IllegalStateException("Left or right expression is null");
+		}
+		if (!left.hasValue()) {
+			throw new IllegalStateException("Left expression has no value");
+		}
+		if (!right.hasValue()) {
+			throw new IllegalStateException("Right expression has no value");
+		}
 		E leftValue = left.value();
 		E rightValue = right.value();
 		return operate(leftValue, rightValue);
@@ -212,7 +212,7 @@ public abstract class BinaryExpression<E extends Number> extends AbstractExpress
 
 		// Check if parent is a TerminalExpression
 		if (parent != null && parent instanceof TerminalExpression)
-		throw new IllegalArgumentException("A TerminalExpression cannot have children");
+			throw new IllegalArgumentException("A TerminalExpression cannot have children");
 
 		// Check if parent is this expression or contained within this expression
 		if (parent != null && (parent == this || contains(parent)))
@@ -270,9 +270,11 @@ public abstract class BinaryExpression<E extends Number> extends AbstractExpress
 		// DONE 407 Complete ...
 
 		sb.append(left);
+		sb.append(" ");  // Add a space before the operator
 		sb.append(rules);
+		sb.append(" ");  // Add a space after the operator
 		sb.append(right);
-
+		
 		return sb.toString();
 	}
 
