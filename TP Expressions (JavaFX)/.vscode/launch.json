@@ -9,7 +9,7 @@
 			"name": "Main FX",
 			"request": "launch",
 			"mainClass": "application.MainFX",
-			"vmArgs": "--module-path /Library/Java/Extensions/javafx-sdk-20/lib --add-modules javafx.controls,javafx.fxml"
+			"vmArgs": "--module-path /home/ewen_expuesto/JAVA_PROJECT/javafx-sdk-20/lib --add-modules javafx.controls,javafx.fxml"
 		},
 		{
 			"type": "java",

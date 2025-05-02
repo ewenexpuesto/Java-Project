@@ -1,5 +1,0 @@
-type float
-a = 3.0
-b = 2.0
-a + b
-a * b
