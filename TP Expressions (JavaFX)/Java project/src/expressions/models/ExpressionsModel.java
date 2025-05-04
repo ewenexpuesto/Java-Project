@@ -504,23 +504,29 @@ public class ExpressionsModel<E extends Number>
 		}
 
 		/*
-		 * TODO Parse context using #parser
+		 * DONE Parse context using #parser
 		 */
 		parser.parse(context);
 
 		/*
-		 * TODO Set the first parsed expression at index "index" in #expressions
+		 * DONE Set the first parsed expression at index "index" in #expressions
 		 */
+		expressions.set(index, parser.parse(context).get(0));
 		
 
-		/*
-		 * TODO Remove the first expression from parsed expressions
-		 * and merge the rest of parsed expressions
-		 */
+
 
 		/*
-		 * TODO Cleanup #variablesMap and refresh #rootItem
+		 * DONE Remove the first expression from parsed expressions
+		 * and merge the rest of parsed expressions
 		 */
+		expressions.remove(0);
+
+		/*
+		 * DONE Cleanup #variablesMap and refresh #rootItem
+		 */
+		this.cleanupVariablesMap();
+		this.refreshRoot();
 		return false;
 	}
 
@@ -535,14 +541,20 @@ public class ExpressionsModel<E extends Number>
 	public boolean remove(Expression<? extends Number> expression)
 	{
 		/*
-		 * TODO Search for expression's index in #expressions and
+		 * DONE Search for expression's index in #expressions and
 		 * return false if not found
 		 */
+		int index = expressions.indexOf(expression);
+		if (index == -1)
+		{
+			return false;
+		}
 
 		/*
-		 * TODO Remove expression from #expressions
+		 * DONE Remove expression from #expressions
 		 * cleanup #variablesMap and refresh #rootItem
 		 */
+		expressions.remove(index);
 		return false;
 	}
 
@@ -595,6 +607,7 @@ public class ExpressionsModel<E extends Number>
 		 * Throw a UnsupportedNumberClassException in any other case
 		 * If a line does not start with "type" then it is a context to parse
 		 */
+		
 
 		/*
 		 * TODO If everything went fine, set file & hasFile attribute
@@ -910,15 +923,34 @@ public class ExpressionsModel<E extends Number>
 		boolean added = false;
 
 		/*
-		 * TODO Merge the provided expressions with #expressions
+		 * DONE Merge the provided expressions with #expressions
 		 * If an expression is already contained in #expressions then
 		 * it should not be added again.
 		 */
+		for (Expression<E> expression : expressions)
+		{
+			if (!this.expressions.contains(expression))
+			{
+				this.expressions.add(expression);
+				added = true;
+			}
+		}
 
 		/*
 		 * TODO Update root if at least one expression has been added to
 		 * #expressions
 		 */
+		// Probably doesn't work
+		if (added)
+		{
+			rootExpression.addAll(expressions);
+			TreeItem<Expression<E>> rootNode = rootItem.get();
+			((ExpressionTreeItem<E>)rootNode).reset();
+			rootNode.setValue(rootExpression);
+			rootNode.setExpanded(true);
+			Event.fireEvent(rootNode, new TreeItem.TreeModificationEvent<Expression<E>>(
+			    TreeItem.valueChangedEvent(), rootNode));
+		}
 
 		return added;
 	}
@@ -982,8 +1014,12 @@ public class ExpressionsModel<E extends Number>
 	    searchFor(Expression<E> expression, TerminalType type)
 	{
 		/*
-		 * TODO if provided expression is null return false
+		 * DONE if provided expression is null return false
 		 */
+		if (expression == null)
+		{
+			return false;
+		}
 
 		/*
 		 * TODO if provided expression is a TerminalExpression
@@ -1033,29 +1069,60 @@ public class ExpressionsModel<E extends Number>
 				String expressionString = e.toString();
 
 				/*
-				 * TODO Search criterium is true when
+				 * DONE Search criterium is true when
 				 * 	- searchName is null or when
 				 * 	- searchName is empty or when
 				 * 	- searchName is found within expression's toString
 				 */
 				boolean searchOk = false;
+				if (searchName == null || searchName.isEmpty())
+				{
+					searchOk = true;
+				}
+				else
+				{
+					searchOk = expressionString.contains(searchName);
+				}
 				/*
-				 * TODO operator criterium is true when
+				 * DONE operator criterium is true when
 				 * 	- operatorFilter is BinaryOperatorRules.ANY or when
 				 * 	- operatorFilter symbol is found in expression's toString
 				 */
 				boolean operatorOk = false;
+				if (operatorFilter == BinaryOperatorRules.ANY)
+				{
+					operatorOk = true;
+				}
+				else
+				{
+					operatorOk = expressionString.contains(operatorFilter.toString());
+				}
 				/*
-				 * TODO operand criterium is true when
+				 * DONE operand criterium is true when
 				 * 	- operandFilter is TerminalType.ALL or when
 				 * 	- operandFilter has been found within expression using searchFor method
 				 */
 				boolean operandOk = false;
+				if (operandFilter == TerminalType.ALL)
+				{
+					operandOk = true;
+				}
+				else
+				{
+					operandOk = searchFor(e, operandFilter);
+				}
 
 				/*
-				 * TODO Predicate result is true when all criteria are true
+				 * DONE Predicate result is true when all criteria are true
 				 */
-				return true;
+				if (searchOk && operatorOk && operandOk)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
 			}
 
 		};
@@ -1074,14 +1141,23 @@ public class ExpressionsModel<E extends Number>
 	private static <E extends Number> boolean containsVariable(Expression<E> expression, String name)
 	{
 		/*
-		 * TODO if provided expression is null return false
+		 * DONE if provided expression is null return false
 		 */
+		if (expression == null)
+		{
+			return false;
+		}
 
 		/*
-		 * TODO if provided expression is a VariableExpression
+		 * DONE if provided expression is a VariableExpression
 		 * return true if the name of the variable is the same as provided name
 		 * return false otherwise
 		 */
+		if (expression instanceof VariableExpression)
+		{
+			VariableExpression<E> variable = (VariableExpression<E>)expression;
+			return variable.getName().equals(name);
+		}
 
 		/*
 		 * TODO if provided expression is BinaryExpression
