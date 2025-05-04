@@ -621,15 +621,19 @@ public class ExpressionParser<E extends Number>
 			// Current token is a number ==> parse constant and push it to operands
 			if (isDigit(tokens[i]))
 			{
-				// TODO parse constant and push it to operands
+				// DONE parse constant and push it to operands
 				// i = parse...
+				parseConstant(tokens, i);
+				popOperatorAndPush2Operands();
 				continue;
 			}
 			// Current token is a variable name ==> parse variable and push it to operands
 			if (isLetter(tokens[i]))
 			{
-				// TODO parse variable and push it to operands
+				// DONE parse variable and push it to operands
 				// i = parse...
+				parseVariable(tokens, i);
+				popOperatorAndPush2Operands();
 				continue;
 			}
 			// Current token is an operator ==> parse operator and push it to operators
@@ -676,16 +680,19 @@ public class ExpressionParser<E extends Number>
 					popOperatorAndPush2Operands();
 				}
 
-				// TODO Push newly created binop to operators.
+				// DONE Push newly created binop to operators.
 				// ...
+				operators.push(binop);
 				continue;
 			}
 
 			// Current token is an opening brace ==> parse sub-context and push it to operands
 			if (tokens[i] == '(')
 			{
-				// TODO parse sub-context and push it to operands
+				// DONE parse sub-context and push it to operands
 				// i = parse...
+				parseSubContext(tokens, i);
+				popOperatorAndPush2Operands();
 				continue;
 			}
 

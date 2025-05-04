@@ -6,7 +6,7 @@ import expressions.terminal.VariableExpression;
 
 /**
  * Assignment expression.
- * Special cas of binary expression used to assign an {@link Expression}
+ * Special case of binary expression used to assign an {@link Expression}
  * to a {@link VariableExpression}
  * @param <E> The type of numbers in expressions
  */
@@ -90,7 +90,7 @@ public class AssignmentExpression<E extends Number> extends BinaryExpression<E>
 	protected E operate(E value1, E value2)
 	{
 		// DONE Replace with correct implementation
-		return value2;
+		return value1;
 	}
 
 	/**
@@ -127,14 +127,14 @@ public class AssignmentExpression<E extends Number> extends BinaryExpression<E>
 	 * {@link VariableExpression}
 	 * @implSpec if provided left is non null and is a {@link VariableExpression}
 	 * then replace this left side with provided left
-	 * @impleSpec if left side can be replaced by provided left and right side
+	 * @implSpec if left side can be replaced by provided left and right side
 	 * has a value, ensures right side value is copied to new left side.
 	 */
 	@Override
 	public void setLeft(Expression<E> left) throws IllegalArgumentException
 	{
 		// DONE replace with correct implementation
-		if (left != null && !(left instanceof VariableExpression)) {
+		if (!(left instanceof VariableExpression)) {
 			throw new IllegalArgumentException("Left side of AssignmentExpression must be a VariableExpression.");
 		}
 	

@@ -48,6 +48,6 @@ public class ConstantExpression<E extends Number> extends TerminalExpression<E>
 	public String toString()
 	{
 		// DONE Replace with correct implementation
-		return this.value.toString();
+		return value.toString();
 	}
 }

@@ -392,11 +392,34 @@ public class ExpressionsModel<E extends Number>
 	public void setNumberType(Number specimen) throws NullPointerException
 	{
 		/*
-		 * TODO Set new specimen from non null argument and create a new parser
+		 * DONE Set new specimen from non null argument and create a new parser
 		 * Caution : Check if this.specimen is not bound before trying to change
 		 * its value.
 		 */
-		
+		// if specimen is null throw NullPointerException
+		if (specimen == null)
+		{
+			throw new NullPointerException("specimen can't be null");
+		}
+		// if specimen is already bound then throw a warning
+		if (this.specimen.isBound())
+		{
+			logger.warning("specimen is already bound");
+			return;
+		}
+		// create a new parser otherwise
+		if (specimen instanceof Integer)
+		{
+			this.specimen.set((E)Integer.valueOf(specimen.intValue()));
+		}
+		else if (specimen instanceof Float)
+		{
+			this.specimen.set((E)Float.valueOf(specimen.floatValue()));
+		}
+		else if (specimen instanceof Double)
+		{
+			this.specimen.set((E)Double.valueOf(specimen.doubleValue()));
+		}
 	}
 
 	/**
@@ -428,12 +451,14 @@ public class ExpressionsModel<E extends Number>
 	public boolean parse(String context) throws ParserException
 	{
 		/*
-		 * TODO Parse context using #parser and merge the resulting expressions
+		 * DONE Parse context using #parser and merge the resulting expressions
 		 */
+		parser.parse(context);
 
 		/*
-		 * TODO Merge parsed expressions with #expressions without doubles
+		 * DONE Merge parsed expressions with #expressions without doubles
 		 */
+		merge(expressions);
 		return false;
 	}
 
@@ -461,21 +486,32 @@ public class ExpressionsModel<E extends Number>
 	{
 		Objects.requireNonNull(expression);
 		/*
-		 * TODO Search for expression's index in #expressions anf throw
+		 * DONE Search for expression's index in #expressions anf throw
 		 * IllegalArgumentException if not found
 		 */
+		int index = expressions.indexOf(expression);
+		if (index == -1)
+		{
+			throw new IllegalArgumentException("Expression not found");
+		}
 
 		/*
-		 * TODO If context is null or empty then remove expression
+		 * DONE If context is null or empty then remove expression
 		 */
+		if (context == null || context.isEmpty())
+		{
+			return remove(expression);
+		}
 
 		/*
 		 * TODO Parse context using #parser
 		 */
+		parser.parse(context);
 
 		/*
 		 * TODO Set the first parsed expression at index "index" in #expressions
 		 */
+		
 
 		/*
 		 * TODO Remove the first expression from parsed expressions
