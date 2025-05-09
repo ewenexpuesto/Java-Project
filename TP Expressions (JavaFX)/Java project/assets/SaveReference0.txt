@@ -1,5 +1,0 @@
-type float
-a = 1.0
-a + b
-b = 2.0
-c = 3.3
