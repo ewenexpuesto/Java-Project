@@ -50,7 +50,7 @@ public class SubtractionExpression<E extends Number> extends BinaryExpression<E>
 		 */
 		if (value1 instanceof Integer)
 		{
-			return (E) Integer.valueOf(value1.intValue() - value2.intValue());
+			return (E) Integer.valueOf(value1.intValue() - value2.intValue()); // Replaced with -
 		}
 		if (value1 instanceof Float)
 		{
@@ -60,7 +60,6 @@ public class SubtractionExpression<E extends Number> extends BinaryExpression<E>
 		{
 			return (E) Double.valueOf(value1.doubleValue() - value2.doubleValue());
 		}
-		throw new UnsupportedOperationException("Unknown Number type "
-		    + value1.getClass().getSimpleName());
+		throw new UnsupportedOperationException("Unknown Number type " + value1.getClass().getSimpleName());
 	}
 }

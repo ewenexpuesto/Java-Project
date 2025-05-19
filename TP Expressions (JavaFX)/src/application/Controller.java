@@ -559,11 +559,11 @@ public class Controller implements Initializable
 		{
 			integersRadioMenuItem.setSelected(true);
 		}
-		if (value instanceof Float)
+		else if (value instanceof Float)
 		{
 			floatsRadiomenuItem.setSelected(true);
 		}
-		if (value instanceof Double)
+		else if (value instanceof Double)
 		{
 			doublesRadiomenuItem.setSelected(true);
 		}
@@ -576,11 +576,11 @@ public class Controller implements Initializable
 			{
 				integersRadioMenuItem.setSelected(true);
 			}
-			if (newValue instanceof Float)
+			else if (newValue instanceof Float)
 			{
 				floatsRadiomenuItem.setSelected(true);
 			}
-			if (newValue instanceof Double)
+			else if (newValue instanceof Double)
 			{
 				doublesRadiomenuItem.setSelected(true);
 			}
@@ -603,18 +603,9 @@ public class Controller implements Initializable
 		 * 	- textOnlyRadiomenuItem
 		 */
 
-		if (contentDisplay.name() == "graphicsOnlyRadiomenuItem")
-		{
-			graphicsOnlyRadiomenuItem.setSelected(true);
-		}
-		if (contentDisplay.name() == "textAndGraphicsRadiomenuItem")
-		{
-			textAndGraphicsRadiomenuItem.setSelected(true);
-		}
-		if (contentDisplay.name() == "textOnlyRadiomenuItem")
-		{
-			textOnlyRadiomenuItem.setSelected(true);
-		}
+		if (contentDisplay.name()=="graphicsOnlyRadiomenuItem"){graphicsOnlyRadiomenuItem.setSelected(true);}
+		if (contentDisplay.name()=="textAndGraphicsRadiomenuItem"){textAndGraphicsRadiomenuItem.setSelected(true);}
+		if (contentDisplay.name()=="textOnlyRadiomenuItem"){textOnlyRadiomenuItem.setSelected(true);}
 		
 
 
@@ -628,71 +619,58 @@ public class Controller implements Initializable
 		 * 	- deleteButton
 		 * 	- quitButton
 		 */
-
 		this.styleableButtons.add(addButton);
 		this.styleableButtons.add(openButton);
 		this.styleableButtons.add(saveButton);
 		this.styleableButtons.add(selectAllButton);
 		this.styleableButtons.add(selectNoneButton);
-		this.styleableButtons.add(deleteButton);
 		this.styleableButtons.add(quitButton);
+		this.styleableButtons.add(deleteButton);
 
 		/*
 		 * Based on #contentDisplay value set during #loadPreferences
-		 * DONE1 apply it to #styleableButtons using onDisplayButtonsWithStyle
+		 * DONE apply it to #styleableButtons using onDisplayButtonsWithStyle
 		 * callback
 		 */
-		
-		// According to the definition of onDisplayButtonWithStyle, the event is "null" at initialization
-		onDisplayButtonsWithStyle(null);
+		onDisplayButtonsWithStyle(null); // "null" when initialized
 
 		/*
-		 * DONE1 Setup terminalTypeCombobox
+		 * DONE Setup terminalTypeCombobox
 		 * 	- Set terminalTypeCombobox items by creating an ObservableList
 		 * 	from TerminalType.all() using FXCollections factory methods
 		 * 	- Set terminalTypeCombobox's selection model's selected item as
 		 * 	TerminalType.ALL
 		 */
-
 		terminalTypeCombobox.setItems(FXCollections.observableList(TerminalType.all()));
 		terminalTypeCombobox.getSelectionModel().select(TerminalType.ALL);
 		
 
 		/*
-		 * DONE1 Setup binaryTypeCombobox
+		 * DONE Setup binaryTypeCombobox
 		 * 	- Set binaryTypeCombobox items by creating an ObservableList
 		 * 	from BinaryOperatorRules.all() using FXCollections factory methods
 		 * 	- Set binaryTypeCombobox's selection model's selected item as
 		 * 	BinaryOperatorRules.ANY
 		 */
-
 		binaryTypeCombobox.setItems(FXCollections.observableList(BinaryOperatorRules.all()));
 		binaryTypeCombobox.getSelectionModel().select(BinaryOperatorRules.ANY);
 
 
-		/*
-		 * Setup #expressionsTableView ...
-		 */
 		/*
 		 * DONE Register a change listener on #expressionsModel expressions list to
 		 * update #expressionsDisplayList
 		 */
 		expressionsModel.getExpressions().addListener(
 			new ListChangeListener<Expression<Number>>()
-		    {
-			    @Override
-			    public void onChanged(Change<? extends Expression<Number>> change)
-			    {
-			    	/*
-			    	 * Ignore change's details, just rebuild the whole list
-			    	 */
-			    	expressionsDisplayList.clear();
-			    	for (Expression<Number> expression : change.getList())
-			    	{
-			    		expressionsDisplayList.add(new ExpressionDisplay<Number>(expression));
-			    	}
-			    }
-		    });
+			{
+				@Override
+				public void onChanged(Change<? extends Expression<Number>> change)
+				{
+					expressionsDisplayList.clear();
+					for (Expression<Number> expression : change.getList())
+					{expressionsDisplayList.add(new ExpressionDisplay<Number>(expression));}
+				}
+			});
 
 		/*
 		 * Setup #expressionsContentColumn CellValueFactory as ExpressionDisplay.contentProperty()
@@ -709,8 +687,9 @@ public class Controller implements Initializable
 		 */
 		expressionsTableView.setItems(expressionsDisplayList);
 		/*
-		 * DONE1 Enable multiple selections on #expressionsTableView
+		 * DONE Enable multiple selections on #expressionsTableView
 		 */
+
 		expressionsTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
 		/*
@@ -768,14 +747,14 @@ public class Controller implements Initializable
 
 
 		/*
-		 * DONE1 Bind Model's filtering properties to UI filtering properties
+		 * DONE Bind Model's filtering properties to UI filtering properties
 		 * 	- model's operatorFiltering property --> binaryTypeCombobox's value property
 		 * 	- model's operandFiltering property --> terminalTypeCombobox's value property
 		 * 	- models's nameFilteringProperty --> searchField's text property
 		 */
-		this.expressionsModel.operatorFilteringProperty().bind(binaryTypeCombobox.valueProperty());
-		this.expressionsModel.operandFilteringProperty().bind(terminalTypeCombobox.valueProperty());
-		this.expressionsModel.nameFilteringProperty().bind(searchField.textProperty());
+		expressionsModel.operatorFilteringProperty().bind(binaryTypeCombobox.valueProperty());
+		expressionsModel.operandFilteringProperty().bind(terminalTypeCombobox.valueProperty());
+		expressionsModel.nameFilteringProperty().bind(searchField.textProperty());
 
 		/*
 		 * expressionsModel features a hasFileProperty() which is true if a file
@@ -783,12 +762,12 @@ public class Controller implements Initializable
 		 * #saveButton, #saveMenuItem and #revertMenuItem should be disabled
 		 * if no file has been loaded yet.
 		 * All 3 feature a feature a disable property
-		 * DONE1 Bind the disable property of these 3 elements to the __inverse__
+		 * DONE Bind the disable property of these 3 elements to the __inverse__
 		 * of expressionsModel hasFileProperty using BooleanExpression#not()
 		 */
-		saveButton.disableProperty().bind(expressionsModel.hasFileProperty().not());
 		saveMenuItem.disableProperty().bind(expressionsModel.hasFileProperty().not());
 		revertMenuItem.disableProperty().bind(expressionsModel.hasFileProperty().not());
+		saveButton.disableProperty().bind(expressionsModel.hasFileProperty().not());
 	}
 
 	// ------------------------------------------------------------------------
@@ -820,13 +799,13 @@ public class Controller implements Initializable
 		logger.info(title + " triggered ...");
 
 		/*
-		 * DONE1 Clear filters
+		 * DONE Clear filters
 		 */
 		onClearFilterAction(event);
 		
 
 		/*
-		 * DONE1 Add expressions in #inputField to #expressionsModel
+		 * DONE Add expressions in #inputField to #expressionsModel
 		 * Get #inputField's content
 		 * Parse this new context in #expressionsModel
 		 * Set a message in #messageLabel indicating expression have been added
@@ -836,30 +815,24 @@ public class Controller implements Initializable
 		 * parser error occurred.
 		 * If context is empty set a message in #messageLabel
 		 */
-		
-
-		
 		String input = inputField.getText();
 		if(input == null){
-			messageLabel.setText("Can't add empty expression :");
+			messageLabel.setText("Trying to add empty expressions");
 			return;
 		}
-
 		try {
 			expressionsModel.parse(input);
 		} catch (ParserException e) {
 			Alert alert = new Alert(AlertType.NONE);
 			alert.setAlertType(AlertType.ERROR);
 			alert.setTitle("ERROR");
-			alert.setContentText("A parser error occured.");
+			alert.setContentText("Parser error");
 			alert.show();
 			return;
 		}
-		
-		messageLabel.setText("Expression added successfully.");
+		messageLabel.setText("Expression added with success");
 		inputField.clear();
-		
-
+		return;
 	}
 
 	/**
@@ -879,18 +852,18 @@ public class Controller implements Initializable
 		String newContext = event.getNewValue();
 
 		/**
-		 * DONE1 If context haven't changed set message in to #messageLabel
+		 * DONE If context haven't changed set message in to #messageLabel
 		 * and return
 		 */
 		if(oldContext == newContext){
-			messageLabel.setText("Edit action didn't change context.");
+			messageLabel.setText("context hasn't changed");
 			return;
 		}
 		
 
 		/*
 		 * If context has changed then
-		 * DONE1 try to reparse the expression with newContext
+		 * DONE try to reparse the expression with newContext
 		 * If a ParserException occurs show an Alert ERROR box indicating a
 		 * parser error occurred.
 		 * On all other possible exceptions just show a logger.severe(...)
@@ -903,10 +876,10 @@ public class Controller implements Initializable
 			Alert alert = new Alert(AlertType.NONE);
 			alert.setAlertType(AlertType.ERROR);
 			alert.setTitle("ERROR");
-			alert.setContentText("A parser error occured.");
+			alert.setContentText("Parsing error");
 			alert.show();
 		} catch(Exception e) {
-			logger.severe("Error in edit action :"  + e.getLocalizedMessage());
+			logger.severe("Error in "  + e.getLocalizedMessage());
 		}
 	}
 
@@ -921,19 +894,19 @@ public class Controller implements Initializable
 	{
 		logger.info("Delete Selected Action triggered ...");
 		/*
-		 * DONE1 Build list of expressions to remove from #expressionsModel
+		 * DONE Build list of expressions to remove from #expressionsModel
 		 * based on #expressionsTableView's selection model's selected items
 		 */
 		ObservableList<ExpressionDisplay<Number>> removable = expressionsTableView.getSelectionModel().getSelectedItems();
 
 		/*
-		 * DONE1 Clear #expressionsTableView's selection model before removing
+		 * DONE Clear #expressionsTableView's selection model before removing
 		 * expressions from model (in order to avoid inconsistencies)
 		 */
 		expressionsTableView.getSelectionModel().clearSelection();
 
 		/**
-		 * DONE1 Actually remove expressions from #expressionsModel
+		 * DONE Actually remove expressions from #expressionsModel
 		 */
 		boolean change = false;
 		for (ExpressionDisplay<Number> expr : removable) {
@@ -941,11 +914,11 @@ public class Controller implements Initializable
 		}
 		
 		/*
-		 * DONE1 If expressions have been removed then display "Expressions deleted"
+		 * DONE If expressions have been removed then display "Expressions deleted"
 		 * in messageLabel
 		 */
-		if(change){
-			messageLabel.setText("Expression(s) deleted.");
+		if( change ){
+			messageLabel.setText("Expressions deleted");
 		}
 	}
 
@@ -958,11 +931,10 @@ public class Controller implements Initializable
 	{
 		logger.info("Select All Action triggered ...");
 		/*
-		 * DONE1 Select all lines of column #expressionsContentColumn
+		 * DONE Select all lines of column #expressionsContentColumn
 		 * And none of #expressionsValueColumn
 		 * Show message in #messageLabel all expressions selected
 		 */
-		// TODO : select column 
 		expressionsTableView.getSelectionModel().selectAll();
 		messageLabel.setText("All expressions selected");
 		
@@ -980,7 +952,7 @@ public class Controller implements Initializable
 		logger.info("Deselect All Action triggered ...");
 		messageLabel.setText("All expressions de-selected");
 		/*
-		 * DONE1 Clear selection in #expressionsTableView
+		 * DONE Clear selection in #expressionsTableView
 		 */
 		expressionsTableView.getSelectionModel().clearSelection();
 	}
@@ -995,7 +967,7 @@ public class Controller implements Initializable
 	{
 		logger.info("New Action triggered ...");
 		/*
-		 * DONE1 Restart from blank slate
+		 * DONE Restart from blank slate
 		 * Clear filters
 		 * Reset file on #expressionsModel
 		 * Clear all expressions in #expressionsModel
@@ -1004,7 +976,7 @@ public class Controller implements Initializable
 		onClearFilterAction(event);
 		expressionsModel.resetFile();
 		expressionsModel.clear();
-		messageLabel.setText("New action performed.");
+		messageLabel.setText("New action performed");
 	}
 
 
@@ -1020,7 +992,7 @@ public class Controller implements Initializable
 	{
 		logger.info("Open Action triggered ...");
 		/*
-		 * DONE1 Open a file
+		 * DONE Open a file
 		 * Clear filters
 		 * Choose and Load a File (without appending expressions)
 		 */
@@ -1040,7 +1012,7 @@ public class Controller implements Initializable
 	{
 		logger.info("Append Action triggered ...");
 		/*
-		 * DONE1 Append a file
+		 * DONE Append a file
 		 * Clear filters
 		 * Choose and Load a File (with appending expressions)
 		 */
@@ -1061,18 +1033,19 @@ public class Controller implements Initializable
 	{
 		logger.info("Undo Action triggered ...");
 		/*
-		 * DONE1 If there is no file opened then trigger save as action
+		 * DONE If there is no file opened then trigger save as action
 		 * (with same event) and return
 		 */
-		if(! expressionsModel.hasFile()){
+		if(!expressionsModel.hasFile()){
 			onSaveAsAction(event);
 			return;
 		}
 		
 		/*
-		 * DONE1 Save expressions to file provided by expressionsModel#getFile()
+		 * DONE Save expressions to file provided by expressionsModel#getFile()
 		 */
-		saveFile(expressionsModel.getFile());		
+		saveFile(expressionsModel.getFile());
+		return;
 	}
 
 	/**
@@ -1088,21 +1061,17 @@ public class Controller implements Initializable
 		logger.info("Save as action triggered ...");
 		//File currentFile = expressionsModel.getFile();
 		/*
-		 * DONE1 Choose a file and save to
+		 * DONE Choose a file and save to
 		 * Choose a file to save to with a FileChooser
 		 * If a file is selected then save expressions to this file
 		 * If no file is selected then just return
 		 */
 		
 		FileChooser fileChooser = new FileChooser();
- 		fileChooser.setTitle("Choose file to save into");
+ 		fileChooser.setTitle("Choose file to save to ");
 		File selectedFile = fileChooser.showSaveDialog(parentStage);
-		
-		if(selectedFile == null){
-			return;
-		} 
-
-		saveFile(selectedFile);
+		if(selectedFile == null){return;}
+		else {saveFile(selectedFile);}
 	}
 
 	/**
@@ -1119,7 +1088,7 @@ public class Controller implements Initializable
 		String title = "Revert Action";
 		logger.info(title + " triggered ...");
 		/*
-		 * DONE1 Revert to file initial state
+		 * DONE Revert to file initial state
 		 * Clear filters
 		 * Clear expressions model
 		 * (re)Load file from expressions model
@@ -1132,12 +1101,11 @@ public class Controller implements Initializable
 			Alert alert = new Alert(AlertType.NONE);
 			alert.setAlertType(AlertType.WARNING);
 			alert.setTitle("WARNING");
-			alert.setContentText("No file to revert to.");
+			alert.setContentText("No file to revert to ");
 		} 
 		try {
 			expressionsModel.load(expressionsModel.getFile(), false);
 		} catch (Exception e){
-
 		}
 	}
 
@@ -1160,42 +1128,39 @@ public class Controller implements Initializable
 		 * (to be able to reparse it after changing number type)
 		 */
 		String buffer = expressionsModel.toString();
-		Number newSpecimen = null;
+
 		/*
 		 * DONE Depending on event source set newSpecimen to the right number type
 		 * and log the action
 		 */
 		Object source = event.getSource();
 		String msg = null;
-
-		
+		Number newSpecimen = null;
 		if(source == integersRadioMenuItem) {
 			newSpecimen = Integer.valueOf(0);
-			msg = "Set number type to integer.";
+			msg = "Set number type to int ";
 		} else if(source == floatsRadiomenuItem) {
 			newSpecimen = (Float.valueOf(0.0f));
-			msg = "Set number type to float.";
+			msg = "Set number type to float ";
 		} else if(source == doublesRadiomenuItem) {
 			newSpecimen = (Double.valueOf(0.0));
-			msg = "Set number type to double.";
+			msg = "Set number type to double ";
 		}
 		logger.info(msg);
 		
 
 		/*
-		 * DONE1 If new specimen is different from old one then
+		 * DONE If new specimen is different from old one then
 		 * Clear current model
 		 * Set new number type to expressions model
 		 */
-
-		// Not sure this works
 		if(this.specimen.getValue() == newSpecimen) {
 			expressionsModel.clear();
 			expressionsModel.setNumberType(newSpecimen);
 		}
 
 		/*
-		 * DONE1 Parse all expressions in text buffer
+		 * DONE Parse all expressions in text buffer
 		 * (with possible ParserException)
 		 * Set message in #messageLabel
 		 */
@@ -1205,12 +1170,11 @@ public class Controller implements Initializable
 			Alert alert = new Alert(AlertType.NONE);
 			alert.setAlertType(AlertType.ERROR);
 			alert.setTitle("ERROR");
-			alert.setContentText("A parser error occured.");
+			alert.setContentText("Parsing error ");
 			alert.show();
 			return;
 		}
-		
-		messageLabel.setText("Expression parsed with new number type.");
+		messageLabel.setText("Expression parsed ");
 		
 	}
 
@@ -1227,21 +1191,18 @@ public class Controller implements Initializable
 		 * All properties related to filtering have already been bound
 		 * in #initialize method
 		 * So we just need to log the action and
-		 * DONE1 set a message in #messageLabel indicating what type of filtering
+		 * DONE set a message in #messageLabel indicating what type of filtering
 		 * has just been applied
 		 */
 		Object source = event.getSource();
 		String message = null;
-
-		if(source == searchField) {
-			message = "Applied search filtering.";
-		} else if(source == terminalTypeCombobox) {
-			message = "Applied terminal type filtering.";
-		} else if(source == binaryTypeCombobox) {
-			message = "Applied binary operation filtering.";
+		if (source == searchField) {
+			message = "Applied search filtering ";
+		} else if (source == binaryTypeCombobox) {
+			message = "Applied binary operation filtering ";
+		} else if (source == terminalTypeCombobox) {
+			message = "Applied terminal type filtering ";
 		}
-
-
 		logger.info(message);
 		messageLabel.setText(message);
 	}
@@ -1263,12 +1224,9 @@ public class Controller implements Initializable
 		 * 	- messageLabel cleared
 		 */
 		searchField.clear();
-		
-		// Set the selection to their initialized value
 		terminalTypeCombobox.getSelectionModel().select(TerminalType.ALL);
 		binaryTypeCombobox.getSelectionModel().select(BinaryOperatorRules.ANY);
-		
-		messageLabel.setText("Cleared");
+		messageLabel.clear();
 	}
 
 	/**
@@ -1290,7 +1248,7 @@ public class Controller implements Initializable
 	{
 		
 		/*
-		 * DONE1 Set contentDisplay to the right value depending on event source
+		 * DONE Set contentDisplay to the right value depending on event source
 		 * - graphicsOnlyRadiomenuItem --> ContentDisplay.GRAPHIC_ONLY
 		 * - textAndGraphicsRadiomenuItem --> ContentDisplay.LEFT
 		 * - textOnlyRadiomenuItem --> ContentDisplay.TEXT_ONLY
@@ -1311,17 +1269,19 @@ public class Controller implements Initializable
 				contentDisplay = ContentDisplay.TEXT_ONLY;
 				message = "Display Buttons with Text only action triggered";
 			}
+		} else {
+			return;
 		} 
 
 		/*
-		 * DONE1 Set selected content display to all styleable buttons
+		 * DONE Set selected content display to all styleable buttons
 		 */
-		for ( Labeled button : styleableButtons) {	
+		for (Labeled button : styleableButtons) {	
 			button.setContentDisplay(contentDisplay);
 		}
 
 		/*
-		 * DONE1 Set message in #messageLabel indicating content display
+		 * DONE Set message in #messageLabel indicating content display
 		 */
 		logger.info(message);
 		messageLabel.setText(message);
@@ -1337,7 +1297,7 @@ public class Controller implements Initializable
 		logger.info("Set Logger level action");
 		Object source = event.getSource();
 		/*
-		 * DONE1 Set logger level depending on event source
+		 * DONE Set logger level depending on event source
 		 * - infoWarningSevereRadiomenuItem --> Level.INFO
 		 * - warningSevereRadiomenuItem --> Level.WARNING
 		 * - severeRadiomenuItem --> Level.SEVERE
@@ -1364,7 +1324,7 @@ public class Controller implements Initializable
 		logger.info("About action triggered");
 		ImageView icon = new ImageView(IconFactory.getLargeIcon("math"));
 		/*
-		 * DONE1 Show an Alert INFORMATION Box with the following content:
+		 * DONE Show an Alert INFORMATION Box with the following content:
 		 * 	- Title: "About ..."
 		 * 	- Header: "Expressions Manager v2.0"
 		 * 	- Content: "A simple application to manage math expressions"
@@ -1373,6 +1333,7 @@ public class Controller implements Initializable
 		String title = "About ...";
 		String header = "Expressions Manager v2.0";
 		String content = "A simple application to manage math expressions";
+		//ImageView icon???;
 		Alert alert = new Alert(AlertType.NONE);
 		alert.setAlertType(AlertType.INFORMATION);
 		alert.setTitle(title);

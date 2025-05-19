@@ -50,17 +50,16 @@ public class PowerExpression<E extends Number> extends BinaryExpression<E>
 		 */
 		if (value1 instanceof Integer)
 		{
-			return (E) Integer.valueOf((int)Math.pow(value1.intValue(), value2.intValue())); //value1.intValue() ^ value2.intValue());
+			return (E) Integer.valueOf((int)Math.pow(value1.intValue(), value2.intValue()));
 		}
 		if (value1 instanceof Float)
 		{
-			return (E) Float.valueOf((float)Math.pow(value1.floatValue(), value2.floatValue())) ;//value1.floatValue() + value2.floatValue());
+			return (E) Float.valueOf((float)Math.pow(value1.floatValue(), value2.floatValue())) ;
 		}
 		if (value1 instanceof Double)
 		{
-			return (E) Double.valueOf(Math.pow(value1.doubleValue(), value2.doubleValue())); //value1.doubleValue() + value2.doubleValue());
+			return (E) Double.valueOf(Math.pow(value1.doubleValue(), value2.doubleValue()));
 		}
-		throw new UnsupportedOperationException("Unknown Number type "
-		    + value1.getClass().getSimpleName());
+		throw new UnsupportedOperationException("Unknown Number type " + value1.getClass().getSimpleName());
 	}
 }

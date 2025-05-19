@@ -60,7 +60,6 @@ public class MultiplicationExpression<E extends Number> extends BinaryExpression
 		{
 			return (E) Double.valueOf(value1.doubleValue() * value2.doubleValue());
 		}
-		throw new UnsupportedOperationException("Unknown Number type "
-		    + value1.getClass().getSimpleName());
+		throw new UnsupportedOperationException("Unknown Number type " + value1.getClass().getSimpleName());
 	}
 }

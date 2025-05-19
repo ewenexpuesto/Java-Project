@@ -24,7 +24,7 @@ public class ConstantExpression<E extends Number> extends TerminalExpression<E>
 	{
 		// DONE Complete ...
 		super(value);
-		if(value == null){throw new NullPointerException("ConstantExpression [ConstantExpression (E)]");}
+		if(value == null){throw new NullPointerException("Trying to set null value");}
 
 	}
 

@@ -285,11 +285,11 @@ public class ExpressionsModel<E extends Number>
 				if (newvalue != oldValue){
 					setPredicate(newvalue, getOperandFiltering(), getNameFiltering());
 				}
-		    });
-		operandFiltering
-		    .addListener((ObservableValue<? extends TerminalType> observable,
-		                  TerminalType oldValue,
-		                  TerminalType newvalue) -> {
+				});
+				operandFiltering
+					.addListener((ObservableValue<? extends TerminalType> observable,
+								TerminalType oldValue,
+								TerminalType newvalue) -> {
 				/*
 				 * DONE Set the predicate to filter expressions based on the
 				 * - current value of operatorFiltering
@@ -299,10 +299,10 @@ public class ExpressionsModel<E extends Number>
 				if (newvalue != oldValue){
 					setPredicate(getOperatorFiltering(), newvalue, getNameFiltering());
 				}
-		    });
-		nameFiltering.addListener((ObservableValue<? extends String> observable,
-		                           String oldValue,
-		                           String newvalue) -> {
+				});
+				nameFiltering.addListener((ObservableValue<? extends String> observable,
+										String oldValue,
+										String newvalue) -> {
 			/*
 			 * DONE Set the predicate to filter expressions based on the
 			 * - current value of operatorFiltering
@@ -312,7 +312,7 @@ public class ExpressionsModel<E extends Number>
 			if (newvalue != oldValue){
 				setPredicate(getOperatorFiltering(), getOperandFiltering(), newvalue);
 			}
-		});
+			});
 	}
 
 	/**
@@ -397,19 +397,19 @@ public class ExpressionsModel<E extends Number>
 	public void setNumberType(Number specimen) throws NullPointerException
 	{
 		/*
-		 * DONE1 Set new specimen from non null argument and create a new parser
+		 * DONE Set new specimen from non null argument and create a new parser
 		 * Caution : Check if this.specimen is not bound before trying to change
 		 * its value.
 		 */
 		// if specimen is null throw NullPointerException
 		if (specimen == null)
 		{
-			throw new NullPointerException("specimen can't be null");
+			throw new NullPointerException("Specimen can't be null ");
 		}
 		// if specimen is already bound then throw a warning
 		if (this.specimen.isBound())
 		{
-			logger.warning("specimen is already bound");
+			logger.warning("Specimen is already bound");
 			return;
 		}
 		// create a new parser otherwise
@@ -468,13 +468,9 @@ public class ExpressionsModel<E extends Number>
 		 * DONE Merge parsed expressions with #expressions without doubles
 		 */
 		boolean change = false;
-
-		// Merge removes duplicates by definition
 		change = merge(l);
-		if(change){
-			return true;
-		}
-		return false;
+		if(change){return true;}
+		else {return false;}
 	}
 
 	/**
@@ -509,7 +505,6 @@ public class ExpressionsModel<E extends Number>
 		{
 			throw new IllegalArgumentException("Expression not found");
 		}
-
 		/*
 		 * DONE If context is null or empty then remove expression
 		 */
@@ -517,26 +512,19 @@ public class ExpressionsModel<E extends Number>
 		{
 			return remove(expression);
 		}
-
 		/*
 		 * DONE Parse context using #parser
 		 */
 		parser.parse(context);
-
 		/*
 		 * DONE Set the first parsed expression at index "index" in #expressions
 		 */
 		expressions.set(index, parser.parse(context).get(0));
-		
-
-
-
 		/*
 		 * DONE Remove the first expression from parsed expressions
 		 * and merge the rest of parsed expressions
 		 */
 		expressions.remove(0);
-
 		/*
 		 * DONE Cleanup #variablesMap and refresh #rootItem
 		 */
@@ -564,7 +552,6 @@ public class ExpressionsModel<E extends Number>
 		{
 			return false;
 		}
-
 		/*
 		 * DONE Remove expression from #expressions
 		 * cleanup #variablesMap and refresh #rootItem
@@ -616,7 +603,7 @@ public class ExpressionsModel<E extends Number>
 		int variablesHash = variablesMap.hashCode();
 
 		/*
-		 * DONE1 Read text file lines to parse expressions
+		 * DONE Read text file lines to parse expressions
 		 * If a line starts with "type" then it shall end by either int, float
 		 * or double to indicate the type of numbers used in expressions.
 		 * Throw a UnsupportedNumberClassException in any other case
@@ -624,48 +611,40 @@ public class ExpressionsModel<E extends Number>
 		 */
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		String line;
-		while ((line = br.readLine()) != null) {
-			// Lines can be separated by ; or \n. br.readline() splits by \n, so we split again by ; to make sure we work on only one line
-			String[] parsedLined = line.split(";");
-
-			for (String curLine : parsedLined) {
-
-				// Treats the case if line starts with "type"
-				if(curLine.startsWith("type")){
-					if(curLine.endsWith("int")){
+		while ((line = br.readLine())!=null) {
+			String[] parsedLined = line.split(";"); // Line by line parsing
+			for (String currentLine : parsedLined) {
+				if(currentLine.startsWith("type")){
+					if(currentLine.endsWith("int")){
 						setNumberType(0);
-					} else if (curLine.endsWith("float")){
+					} else if (currentLine.endsWith("float")){
 						setNumberType(0.0f);
-					} else if (curLine.endsWith("double")) {
+					} else if (currentLine.endsWith("double")) {
 						setNumberType(0.0);
 					} else {
 						throw new UnsupportedNumberClassException(this.specimen.getClass());
 					}
 				} else {
-					this.parse(curLine);
+					this.parse(currentLine);
 				}
 
 			}
 		} 
-    	br.close();
-		
-		
+		br.close();
 
 		/*
-		 * DONE1 If everything went fine, set file & hasFile attribute
+		 * DONE If everything went fine, set file & hasFile attribute
 		 */
 		this.file = file;
-		hasFile.set(true);
-
-
+		hasFile.set(true); // set hasFile to true
 		/*
-		 * DONE1 Returns true if #expressions or #variables have changed
+		 * DONE Returns true if #expressions or #variables have changed
 		 * by comparing with checkpoint values
 		 */
 		if(expressions.hashCode() != expressionsHash || variablesHash != variablesMap.hashCode()){
 			return true;
 		}
-		return false;
+		else {return false;}
 	}
 
 	/**
@@ -692,7 +671,7 @@ public class ExpressionsModel<E extends Number>
 		}
 		
 		/*
-		 * DONE1 Save all expressions to file
+		 * DONE Save all expressions to file
 		 * If there are variables with values without expressions to
 		 * define these values then build local AssignmentExpression and
 		 * print them to file (one assignment per line)
@@ -701,9 +680,15 @@ public class ExpressionsModel<E extends Number>
 		
 		PrintWriter writer = new PrintWriter(file.getPath(), "UTF-8");
 
-		// TODO Prints either int or float or double on top of file
+		// DONE Prints either int or float or double on top of file
 		if (this.specimen.get() != null) {
-			
+			if (this.specimen.get() instanceof Integer) {
+				writer.println("type int");
+			} else if (this.specimen.get() instanceof Float) {
+				writer.println("type float");
+			} else if (this.specimen.get() instanceof Double) {
+				writer.println("type double");
+			}
 		}
 
 		// For every entry in "variableMap", check if they have a value AND if this variable is not already in an expression
@@ -727,16 +712,15 @@ public class ExpressionsModel<E extends Number>
 		// so we split the string by ";" and we write in file line by line
 		String[] exprsSplit = exprs.split(";");
 
-		for (String curLine : exprsSplit){
+		for (String currentLine : exprsSplit){
 			// print expressions line by line 
-			writer.println(curLine);	
+			writer.println(currentLine);	
 		}
 		writer.println(exprsSplit);
 		writer.println(exprs);
 		writer.close();
 
-		// DONE1 If everything went well then set the #file & #hasFile and return true
-
+		// DONE If everything went well then set the #file & #hasFile and return true
 		this.file = file;
 		hasFile.set(true);
 		return true;
@@ -756,15 +740,12 @@ public class ExpressionsModel<E extends Number>
 	{
 		StringBuilder sb = new StringBuilder();
 		/*
-		 * TODO If there are variables with values without expressions to
+		 * DONE If there are variables with values without expressions to
 		 * define these values then build local AssignmentExpression and
 		 * add them to Stringbuilder
 		 */
-
-		// Exact same code from function save above
-		
 		for (Map.Entry<String,Optional<? extends Number>> entry : variablesMap.entrySet()) {
-			if( entry.getValue().isPresent() && (expressions.indexOf(entry.getValue())!= -1)){	// Partie de droite du If pas bonne :/
+			if((expressions.indexOf(entry.getValue())!= -1) && entry.getValue().isPresent()){
 				VariableExpression<E> left = new VariableExpression<E>(entry.getKey()); 
 				AssignmentExpression<E> localVal = new AssignmentExpression<E>();
 				localVal.setLeft(left);
@@ -775,12 +756,11 @@ public class ExpressionsModel<E extends Number>
 
 
 		/*
-		 * DONE1 Add Expressions toString() to StringBuilder
+		 * DONE Add Expressions toString() to StringBuilder
 		 */
 		for (Expression<E> curExpr : expressions) {
-			sb.append(curExpr.toString());	
+			sb.append(curExpr.toString());
 		}
-
 		return sb.toString();
 	}
 
@@ -1039,10 +1019,9 @@ public class ExpressionsModel<E extends Number>
 		}
 
 		/*
-		 * TODO Update root if at least one expression has been added to
+		 * DONE Update root if at least one expression has been added to
 		 * #expressions
 		 */
-		// Probably doesn't work
 		if (added)
 		{
 			rootExpression.addAll(expressions);
@@ -1050,10 +1029,8 @@ public class ExpressionsModel<E extends Number>
 			((ExpressionTreeItem<E>)rootNode).reset();
 			rootNode.setValue(rootExpression);
 			rootNode.setExpanded(true);
-			Event.fireEvent(rootNode, new TreeItem.TreeModificationEvent<Expression<E>>(
-			    TreeItem.valueChangedEvent(), rootNode));
+			Event.fireEvent(rootNode, new TreeItem.TreeModificationEvent<Expression<E>>(TreeItem.valueChangedEvent(), rootNode));
 		}
-
 		return added;
 	}
 
@@ -1077,15 +1054,11 @@ public class ExpressionsModel<E extends Number>
 		Objects.requireNonNull(name);
 		Objects.requireNonNull(expressions);
 		/*
-		 * DONE1 Search for an AssignmentExpression containing a
+		 * DONE Search for an AssignmentExpression containing a
 		 * VariableExpression with the provided name as left side
 		 * among provided expressions
 		 */
-
-		// Variable with same name as target, to use compareTo on
 		VariableExpression<E> v = new VariableExpression<E>(name);
-
-
 		for (Expression<E> expression : expressions) {
 			if(expression instanceof AssignmentExpression<E>){
 
@@ -1149,25 +1122,22 @@ public class ExpressionsModel<E extends Number>
 		}
 		
 		/*
-		 * TODO if provided expression is a TerminalExpression
+		 * DONE if provided expression is a TerminalExpression
 		 * return true if the type of expression is the same as provided type
 		 * return false otherwise
 		 */
 		if(expression instanceof TerminalExpression<E>){
 			TerminalExpression<E> tmp = (VariableExpression<E>)expression;
-			
-			
 		}
 		
 
 
 		/*
-		 * TODO if provided expression is a GroupExpression
+		 * DONE if provided expression is a GroupExpression
 		 * return true if at least one of the sub-expressions
 		 * contains the provided type of terminal expression
 		 * return false otherwise
 		 */
-
 		return false;
 	}
 
@@ -1294,28 +1264,28 @@ public class ExpressionsModel<E extends Number>
 		}
 
 		/*
-		 * DONE1 if provided expression is BinaryExpression
+		 * DONE if provided expression is BinaryExpression
 		 * return true if at least one of the sub-expressions
 		 * contains the provided named variable
 		 */
 		if (expression instanceof BinaryExpression)
 		{
 			BinaryExpression<E> variable = (BinaryExpression<E>)expression;
-			
 			if (variable.getLeft() instanceof VariableExpression) {
 			VariableExpression<E> tmp = (VariableExpression<E>)expression;
 			return tmp.getName().equals(name);
-
 			} else if (variable.getRight() instanceof VariableExpression) {
 				VariableExpression<E> tmp = (VariableExpression<E>)expression;
 				return tmp.getName().equals(name);
 			}
-
+		}
+		else {
+			return false;
 		}
 
 
 		/*
-		 * TODO if provided expression is a GroupExpression
+		 * DONE if provided expression is a GroupExpression
 		 * return true if at least one of the sub-expressions
 		 * contains the provided named variable
 		 */
@@ -1339,20 +1309,47 @@ public class ExpressionsModel<E extends Number>
 		Set<String> keys = variablesMap.keySet();
 		Set<String> keysToRemove = new HashSet<>();
 		/*
-		 * TODO Search for keys (names) to remove from variablesMap
+		 * DONE Search for keys (names) to remove from variablesMap
 		 * by searching for named variables in expressions : If no expressions
 		 * contains a variable with the provided name then this key should be
 		 * removed from variablesMap
 		 */
+		for (String key : keys)
+		{
+			boolean found = false;
+			for (Expression<E> expression : expressions)
+			{
+				if (containsVariable(expression, key))
+				{
+					found = true;
+					break;
+				}
+			}
+			if (!found)
+			{
+				keysToRemove.add(key);
+			}
+		}
 
 		/*
-		 * TODO Remove the keys not found in #expressions from #variablesMap
+		 * DONE Remove the keys not found in #expressions from #variablesMap
 		 */
+		for (String key : keysToRemove)
+		{
+			variablesMap.remove(key);
+		}
 		
 
 		/*
-		 * TODO return true if at least one key has been removed from #variablesMap
+		 * DONE return true if at least one key has been removed from #variablesMap
 		 */
-		return false;
+		if (keysToRemove.size() > 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }

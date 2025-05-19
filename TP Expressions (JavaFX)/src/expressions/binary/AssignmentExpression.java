@@ -25,7 +25,7 @@ public class AssignmentExpression<E extends Number> extends BinaryExpression<E>
 		super(left, right, BinaryOperatorRules.ASSIGNMENT);
 		// DONE Complete ...
 		setLeft(left);
-        setRight(right);
+		setRight(right);
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class AssignmentExpression<E extends Number> extends BinaryExpression<E>
 		// DONE Replace with correct implementation
 		if (parent instanceof BinaryExpression || parent instanceof TerminalExpression) {
 			throw new IllegalArgumentException(
-				"AssignmentExpression can't have an arithmetic expression (Binary or Terminal) as parent"
+				"AssignmentExpression can't have an arithmetic expression as a parent"
 			);
 		}
 		super.setParent(parent);
@@ -135,12 +135,9 @@ public class AssignmentExpression<E extends Number> extends BinaryExpression<E>
 	{
 		// DONE replace with correct implementation
 		if (!(left instanceof VariableExpression)) {
-			throw new IllegalArgumentException("Left side of AssignmentExpression must be a VariableExpression.");
+			throw new IllegalArgumentException("Left side of AssignmentExpression must be a VariableExpression");
 		}
-	
 		super.setLeft(left);
-	
-		// Si possible, propager la valeur de droite vers la nouvelle gauche
 		if (left != null && right != null && right.hasValue()) {
 			((VariableExpression<E>) left).setValue(right.value());
 		}
@@ -160,13 +157,11 @@ public class AssignmentExpression<E extends Number> extends BinaryExpression<E>
 	{
 		// DONE replace with correct implementation
 		super.setRight(right);
-
-		// Si possible, propager la valeur de droite vers la gauche
 		if (left instanceof VariableExpression<E> variable) {
 			if (right != null && right.hasValue()) {
 				variable.setValue(right.value());
 			} else {
-				variable.clearValue(); // Supposition raisonnable : refléter l’absence de valeur
+				variable.clearValue();
 			}
 		}
 	}

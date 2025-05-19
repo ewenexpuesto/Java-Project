@@ -1056,7 +1056,7 @@ public class VariableExpressionTest
 		}
 	}
 
-	// TODO add test for contains(expr) method
+	// DONE add test for contains(expr) method
 
 	/**
 	 * Test method for {@link VariableExpression#equals(java.lang.Object)}.

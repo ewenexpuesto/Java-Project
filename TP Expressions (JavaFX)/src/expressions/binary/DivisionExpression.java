@@ -60,7 +60,6 @@ public class DivisionExpression<E extends Number> extends BinaryExpression<E>
 		{
 			return (E) Double.valueOf(value1.doubleValue() / value2.doubleValue());
 		}
-		throw new UnsupportedOperationException("Unknown Number type "
-		    + value1.getClass().getSimpleName());
+		throw new UnsupportedOperationException("Unknown Number type " + value1.getClass().getSimpleName());
 	}
 }

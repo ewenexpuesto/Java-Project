@@ -149,7 +149,9 @@ public abstract class AbstractExpression<E extends Number>
 			{
 				return false;
 			}
-			return toString().equals(expr.toString());
+			else {
+				return toString().equals(expr.toString());
+			}
 		}
 		return false;
 	}

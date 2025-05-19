@@ -1027,7 +1027,7 @@ public class ExpressionTest
 
 	}
 
-	// TODO add test for contains(expr) method
+	// DONE add test for contains(expr) method
 
 	/**
 	 * Test method for {@link expressions.Expression#equals(java.lang.Object)}.
