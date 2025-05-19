@@ -3,17 +3,10 @@
 	"configurations": [
 		{
 			"type": "java",
-			"name": "Main",
-			"request": "launch",
-			"mainClass": "Main",
-			"projectName": "TP Expressions (JavaFX)_50b85e0e"
-		},
-		{
-			"type": "java",
 			"name": "Main FX",
 			"request": "launch",
 			"mainClass": "application.MainFX",
-			"vmArgs": "--module-path /home/ewen_expuesto/JAVA_PROJECT/javafx-sdk-20/lib --add-modules javafx.controls,javafx.fxml"
+			"vmArgs": "--module-path /pub/FISE_LAOB12/javafx-sdk-20/lib --add-modules javafx.controls,javafx.fxml"
 		},
 		{
 			"type": "java",
